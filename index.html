@@ -1,11 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+<script language="javascript" type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script language="javascript" type="text/javascript" src="http://apps.bdimg.com/libs/flot/0.8.2/jquery.flot.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title></title>
+<script type="text/javascript">
+	$(function() {
+	    url=window.location.href
+	    var index=url.indexOf("index")
+	    uuid=url.substr(index+6)
+	    $.get("../api/"+uuid, function(result){
+	            //debugger
+                var obj = jQuery.parseJSON(result)
+                for (var i = 0; i < obj.length; i += 1) {
+                    d1.push([i, obj[i].batterycurrent]);
+                }
+                $.plot("#placeholder", [{
+                    data: d1,
+                    lines: { show: true, fill: true }
+                }]);
+              });
+		var d1 = [];
+		<!--for (var i = 0; i < 14; i += 0.5) {-->
+			<!--d1.push([i, Math.sin(i)]);-->
+		<!--}-->
+		<!--$.plot("#placeholder", [{-->
+			<!--data: d1,-->
+			<!--lines: { show: true, fill: true }-->
+		<!--}]);-->
+	});
+	</script>
 </head>
 <body>
-    hi coffe babe
-    we comming
+	<div id="header">
+		<h2>Battery</h2>
+	</div>
+	<div id="content">
+		<div class="demo-container">
+			<div id="placeholder" class="demo-placeholder" style="width:600px;height:400px"></div>
+		</div>
+	</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 from bottle import route, run, template,request,response
 import json
 
-@route('/battery')
+@route('/battery') #receive from IOS
 def receive():
     try:
         data=request.query.data.lower()
@@ -14,11 +14,26 @@ def receive():
     finally:
         file_object.close()
 
-@route('/index/:udid')
+@route('/api/:udid') #api for web page
+def getdata(udid):
+    file_object = open(udid,'r')
+    line=file_object.readline()
+    result=[]
+    while line<>'':
+        result.append(json.loads(line))
+        line=file_object.readline()
+    return json.dumps(result)
+
+@route('/index/:udid') #web page
 def render(udid):
     file_object = open('index.html','r')
     all_the_text=file_object.read()
     return all_the_text
 
+@route('/js/:filename') #web js
+def js(filename):
+    file_object = open(filename,'r')
+    all_the_text=file_object.read()
+    return all_the_text
 
 run(host='localhost', port=8080)
