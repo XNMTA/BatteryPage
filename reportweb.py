@@ -30,11 +30,5 @@ def render(udid):
     all_the_text=file_object.read()
     return all_the_text
 
-@route('/js/:filename') #web js
-def js(filename):
-    file_object = open(filename,'r')
-    all_the_text=file_object.read()
-    return all_the_text
-
 run(host='10.32.36.45', port=8080)
 #run(host='localhost', port=8080)
