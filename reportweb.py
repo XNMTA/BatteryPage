@@ -36,4 +36,5 @@ def js(filename):
     all_the_text=file_object.read()
     return all_the_text
 
-run(host='localhost', port=8080)
+run(host='10.32.36.45', port=8080)
+#run(host='localhost', port=8080)
